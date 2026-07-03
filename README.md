@@ -43,20 +43,6 @@ Right now I'm building two products:
 
 </details>
 
-### 📊 GitHub stats
-
-<p align="center">
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/pablomanjarres/pablomanjarres/main/profile-summary-card-output/github_dark/3-stats.svg" />
-  <img alt="GitHub stats" height="192" src="https://raw.githubusercontent.com/pablomanjarres/pablomanjarres/main/profile-summary-card-output/default/3-stats.svg" />
-</picture>
-&nbsp;
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/pablomanjarres/pablomanjarres/main/profile-summary-card-output/github_dark/1-repos-per-language.svg" />
-  <img alt="Top languages" height="192" src="https://raw.githubusercontent.com/pablomanjarres/pablomanjarres/main/profile-summary-card-output/default/1-repos-per-language.svg" />
-</picture>
-</p>
-
 ### 🧊 Contribution calendar
 
 <img alt="3D contribution calendar" src="https://raw.githubusercontent.com/pablomanjarres/pablomanjarres/main/profile-3d-contrib/profile-night-view.svg" width="100%" />
