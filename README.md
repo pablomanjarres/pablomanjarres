@@ -16,7 +16,7 @@
 
 Right now I'm building two products:
 
-- **[Noelle](https://trynoelle.com):** the team you'd hire if you had the budget, made of AI agents you run like a company. They discover, research, and draft outreach across X, LinkedIn, and Reddit. Nothing ships without a human on the approve button.
+- **[Noelle](https://trynoelle.com):** the team you'd hire if you had the budget, made of AI agents you run like a company. They discover, research, and draft outreach across X, LinkedIn, Reddit, and Instagram. Nothing ships without a human on the approve button.
 - **[Nella](https://getnella.dev):** codebase intelligence for AI coding agents. AST-chunked hybrid search plus a persistent memory of assumptions and decisions, over MCP, so agents stop inventing APIs that were never there.
 
 ### Selected work
@@ -43,13 +43,23 @@ Right now I'm building two products:
 
 </details>
 
-### Contribution graph
+### 📊 GitHub stats
 
+<p align="center">
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/pablomanjarres/pablomanjarres/output/github-snake-dark.svg" />
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/pablomanjarres/pablomanjarres/output/github-snake.svg" />
-  <img alt="My contribution graph, eaten by a snake" src="https://raw.githubusercontent.com/pablomanjarres/pablomanjarres/output/github-snake.svg" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/pablomanjarres/pablomanjarres/main/profile-summary-card-output/github_dark/3-stats.svg" />
+  <img alt="GitHub stats" height="192" src="https://raw.githubusercontent.com/pablomanjarres/pablomanjarres/main/profile-summary-card-output/default/3-stats.svg" />
 </picture>
+&nbsp;
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/pablomanjarres/pablomanjarres/main/profile-summary-card-output/github_dark/1-repos-per-language.svg" />
+  <img alt="Top languages" height="192" src="https://raw.githubusercontent.com/pablomanjarres/pablomanjarres/main/profile-summary-card-output/default/1-repos-per-language.svg" />
+</picture>
+</p>
+
+### 🧊 Contribution calendar
+
+<img alt="3D contribution calendar" src="https://raw.githubusercontent.com/pablomanjarres/pablomanjarres/main/profile-3d-contrib/profile-night-view.svg" width="100%" />
 
 ---
 
