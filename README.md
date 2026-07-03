@@ -8,6 +8,8 @@
   <a href="https://pablomanjarres.com/portfolio"><img src="https://img.shields.io/badge/Portfolio-pablomanjarres.com-c8542a?style=for-the-badge" alt="Portfolio"></a>
   &nbsp;
   <a href="mailto:pablo@pablomanjarres.com"><img src="https://img.shields.io/badge/Email-pablo@pablomanjarres.com-7a5a3a?style=for-the-badge" alt="Email"></a>
+  &nbsp;
+  <a href="https://calendly.com/pablo-pablomanjarres/meet-with-me"><img src="https://img.shields.io/badge/Book_a_call-Calendly-c8542a?style=for-the-badge&logo=calendly&logoColor=white" alt="Book a call"></a>
 </p>
 
 <p align="center">
@@ -55,4 +57,4 @@ Right now I'm building two products:
 
 ---
 
-<p align="center"><sub>Building <a href="https://trynoelle.com">Noelle</a> in public. Reach me by <a href="mailto:pablo@pablomanjarres.com">email</a> or on <a href="https://x.com/pablomanjarress">X</a>.</sub></p>
+<p align="center"><sub>Building <a href="https://trynoelle.com">Noelle</a> in public. <a href="https://calendly.com/pablo-pablomanjarres/meet-with-me">Book a call</a>, or reach me by <a href="mailto:pablo@pablomanjarres.com">email</a> or on <a href="https://x.com/pablomanjarress">X</a>.</sub></p>
