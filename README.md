@@ -43,6 +43,14 @@ Right now I'm building two products:
 
 </details>
 
+### Contribution graph
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/pablomanjarres/pablomanjarres/output/github-snake-dark.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/pablomanjarres/pablomanjarres/output/github-snake.svg" />
+  <img alt="My contribution graph, eaten by a snake" src="https://raw.githubusercontent.com/pablomanjarres/pablomanjarres/output/github-snake.svg" />
+</picture>
+
 ---
 
 <p align="center"><sub>Building <a href="https://trynoelle.com">Noelle</a> in public. Reach me by <a href="mailto:pablo@pablomanjarres.com">email</a> or on <a href="https://x.com/pablomanjarress">X</a>.</sub></p>
