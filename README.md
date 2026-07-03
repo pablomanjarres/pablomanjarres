@@ -5,11 +5,17 @@
 </p>
 
 <p align="center">
-  <a href="https://pablomanjarres.com/portfolio"><img src="https://img.shields.io/badge/portfolio-pablomanjarres.com-c8542a?style=for-the-badge" alt="Portfolio"></a>
-  <a href="https://x.com/pablomanjarress"><img src="https://img.shields.io/badge/X-@pablomanjarress-1c1812?style=for-the-badge&logo=x&logoColor=white" alt="X"></a>
-  <a href="https://linkedin.com/in/pablomanjarres"><img src="https://img.shields.io/badge/LinkedIn-pablomanjarres-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"></a>
-  <a href="https://github.com/pablomanjarres"><img src="https://img.shields.io/github/followers/pablomanjarres?style=for-the-badge&label=followers&color=7a5a3a&logo=github&logoColor=white" alt="GitHub followers"></a>
-  <a href="mailto:pablo@pablomanjarres.com"><img src="https://img.shields.io/badge/email-pablo@pablomanjarres.com-7a5a3a?style=for-the-badge" alt="Email"></a>
+  <a href="https://pablomanjarres.com/portfolio"><img src="https://img.shields.io/badge/Portfolio-pablomanjarres.com-c8542a?style=for-the-badge" alt="Portfolio"></a>
+  &nbsp;
+  <a href="mailto:pablo@pablomanjarres.com"><img src="https://img.shields.io/badge/Email-pablo@pablomanjarres.com-7a5a3a?style=for-the-badge" alt="Email"></a>
+</p>
+
+<p align="center">
+  <a href="https://x.com/pablomanjarress"><img src="https://img.shields.io/badge/X-1c1812?style=flat&logo=x&logoColor=white" alt="X"></a>
+  <a href="https://linkedin.com/in/pablomanjarres"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=flat&logo=linkedin&logoColor=white" alt="LinkedIn"></a>
+  <a href="https://instagram.com/pablomanjarress"><img src="https://img.shields.io/badge/Instagram-E4405F?style=flat&logo=instagram&logoColor=white" alt="Instagram"></a>
+  <a href="https://tiktok.com/@pablomanjarres.dev"><img src="https://img.shields.io/badge/TikTok-1c1812?style=flat&logo=tiktok&logoColor=white" alt="TikTok"></a>
+  <a href="https://reddit.com/user/pablomanjarres"><img src="https://img.shields.io/badge/Reddit-FF4500?style=flat&logo=reddit&logoColor=white" alt="Reddit"></a>
 </p>
 
 ---
