@@ -39,6 +39,8 @@ Right now I'm building two products:
 | [Archgraph](https://github.com/pablomanjarres/archgraph) | AI-generated C4 architecture diagrams from any codebase | `shipped` |
 | [Forge](https://github.com/pablomanjarres/forge) | macOS menu-bar app for AI media and coding agents | `shipped` |
 | [Content Pipeline](https://github.com/pablomanjarres/content-pipeline) | Local-first app to run a founder's content and outreach | `shipped` |
+| [GRIT-X-AWA](https://github.com/pablomanjarres/NASA-Space-Apps-Challenge) | Exoplanet detection over NASA Kepler and TESS mission data (NASA Space Apps) | `prototype` |
+| [Study Hub](https://github.com/pablomanjarres/study-hub) | Multi-subject CS study platform with interactive automata visualizations and a key-free MCP server | `wip` |
 
 **[See the full catalog with write-ups at pablomanjarres.com/portfolio](https://pablomanjarres.com/portfolio)**
 
