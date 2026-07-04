@@ -15,8 +15,6 @@
 <p align="center">
   <a href="https://x.com/pablomanjarress"><img src="https://img.shields.io/badge/X-1c1812?style=flat&logo=x&logoColor=white" alt="X"></a>
   <a href="https://linkedin.com/in/pablomanjarres"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=flat&logo=linkedin&logoColor=white" alt="LinkedIn"></a>
-  <a href="https://instagram.com/pablomanjarress"><img src="https://img.shields.io/badge/Instagram-E4405F?style=flat&logo=instagram&logoColor=white" alt="Instagram"></a>
-  <a href="https://www.tiktok.com/@pablomanjarres"><img src="https://img.shields.io/badge/TikTok-1c1812?style=flat&logo=tiktok&logoColor=white" alt="TikTok"></a>
   <a href="https://reddit.com/user/pablomanjarres"><img src="https://img.shields.io/badge/Reddit-FF4500?style=flat&logo=reddit&logoColor=white" alt="Reddit"></a>
 </p>
 
