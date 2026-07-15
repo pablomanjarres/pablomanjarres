@@ -22,7 +22,7 @@
 
 Right now I'm building two products:
 
-- **[Noelle](https://trynoelle.com):** the team you'd hire if you had the budget, made of AI agents you run like a company. They discover, research, and draft outreach across X, LinkedIn, Reddit, and Instagram. Nothing ships without a human on the approve button.
+- **[Noelle](https://trynoelle.com):** the team you'd hire if you had the budget, made of AI agents you run like a company. They discover, research, and draft outreach across X, LinkedIn, Reddit, Instagram, and TikTok. Nothing ships without a human on the approve button.
 - **[Nella](https://getnella.dev):** codebase intelligence for AI coding agents. AST-chunked hybrid search plus a persistent memory of assumptions and decisions, over MCP, so agents stop inventing APIs that were never there.
 
 ### Selected work
@@ -33,12 +33,18 @@ Right now I'm building two products:
 | [Nella](https://getnella.dev) | Code context and memory engine for AI agents, over MCP | `live` |
 | [Cortex](https://github.com/pablomanjarres/cortex) | Encrypted local-first life dashboard with a 51-tool MCP | `shipped` |
 | [Band of Agents](https://github.com/pablomanjarres/Band-Of-Agents) | Agents clear a campaign against each market's ad rules and debate the conflicts on the record | `shipped` |
-| [OmegaHack · CAROL](https://github.com/pablomanjarres/omegahack) | Multi-agent govtech for city halls (407 tests, 100% coverage on the deadline engine) | `prototype` |
-| [Archgraph](https://github.com/pablomanjarres/archgraph) | AI-generated C4 architecture diagrams from any codebase | `shipped` |
-| [Forge](https://github.com/pablomanjarres/forge) | macOS menu-bar app for AI media and coding agents | `shipped` |
 | [Content Pipeline](https://github.com/pablomanjarres/content-pipeline) | Local-first app to run a founder's content and outreach | `shipped` |
+| [Forge](https://github.com/pablomanjarres/forge) | macOS menu-bar app for AI media and coding agents | `shipped` |
+| [Archgraph](https://github.com/pablomanjarres/archgraph) | AI-generated C4 architecture diagrams from any codebase | `live` |
+| [OmegaHack · CAROL](https://github.com/pablomanjarres/omegahack) | Multi-agent govtech for city halls (407 tests, 100% coverage on the deadline engine) | `prototype` |
+| [Localhost Mirror](https://github.com/pablomanjarres/localhost-mirror) | Expose localhost over Tailscale, from your menu bar | `shipped` |
+| [Lumen Frontier](https://github.com/pablomanjarres/Lumen-Frontier) | A widget OS and a 3D universe you fly through to learn | `live` |
 | [GRIT-X-AWA](https://github.com/pablomanjarres/NASA-Space-Apps-Challenge) | Exoplanet detection over NASA Kepler and TESS mission data (NASA Space Apps) | `prototype` |
-| [Study Hub](https://github.com/pablomanjarres/study-hub) | Multi-subject CS study platform with interactive automata visualizations and a key-free MCP server | `wip` |
+| [Study Hub](https://pablomanjarres.com/portfolio/study-hub/demo) | Multi-subject CS study platform with interactive automata visualizations and a key-free MCP server | `wip` |
+| [Valhalla](https://github.com/pablomanjarres/valhalla) | A live terminal command center over my whole personal-AI stack | `wip` |
+| [Redline](https://github.com/pablomanjarres/redline) | Statistical-rigor auditor for single-cell RNA-seq (46/46 planted errors caught, 0% false positives) | `shipped` |
+| [Lumen Tutor](https://github.com/pablomanjarres/Lumen) | An AI tutor that teaches calculus by drawing on a live whiteboard | `prototype` |
+| [PortPeek](https://github.com/pablomanjarres/PortPeek) | See what's squatting on your localhost ports, and evict it from the menu bar | `prototype` |
 
 **[See the full catalog with write-ups at pablomanjarres.com/portfolio](https://pablomanjarres.com/portfolio)**
 
