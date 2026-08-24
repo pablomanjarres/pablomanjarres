@@ -45,8 +45,13 @@ Right now I'm building two products:
 | [Redline](https://github.com/pablomanjarres/redline) | Statistical-rigor auditor for single-cell RNA-seq (46/46 planted errors caught, 0% false positives) | `shipped` |
 | [Lumen Tutor](https://github.com/pablomanjarres/Lumen) | An AI tutor that teaches calculus by drawing on a live whiteboard | `prototype` |
 | [PortPeek](https://github.com/pablomanjarres/PortPeek) | See what's squatting on your localhost ports, and evict it from the menu bar | `prototype` |
+| [Moon Light](https://github.com/pablomanjarres/Magneto) | Profile manager and explainable job ranking, built for the Magneto industry challenge | `wip` |
 
 **[See the full catalog with write-ups at pablomanjarres.com/portfolio](https://pablomanjarres.com/portfolio)**
+
+### Client work
+
+**[ConstruCredit](https://construcredit.com.co)** is a microcredit platform I build for a Colombian lender that finances people building their own homes. Loan origination, an amortization engine over outstanding balance, late interest, payments, WhatsApp notifications, role-filtered access and an audit trail. Closed source, so the link goes to the live site.
 
 <details>
 <summary><b>🧰 Tech I build with</b> (click to expand)</summary>
