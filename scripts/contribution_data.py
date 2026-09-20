@@ -51,12 +51,18 @@ def parse_source(path: Path) -> ProfileData:
     )), None)
     if footer is None:
         raise ValueError("Generated SVG has no contribution summary")
-    footer_text = [(text.text or "").strip() for text in descendants(footer, "text")]
+    footer_labels = descendants(footer, "text")
+    footer_text = [(label.text or "").strip() for label in footer_labels]
     if len(footer_text) < 5 or footer_text[1] != "contributions":
         raise ValueError("Generated SVG changed its contribution summary format")
     period = re.fullmatch(r"(\d{4}-\d{2}-\d{2})\s*/\s*(\d{4}-\d{2}-\d{2})", footer_text[-1])
     if period is None:
         raise ValueError("Generated SVG has no recognizable date range")
+
+    social_counts = []
+    for label in footer_labels[2:4]:
+        title = next((child for child in label if tag_name(child) == "title"), None)
+        social_counts.append(int((title.text if title is not None else label.text) or ""))
 
     activity = {}
     for group in groups:
@@ -81,8 +87,8 @@ def parse_source(path: Path) -> ProfileData:
         start=date.fromisoformat(period.group(1)),
         end=date.fromisoformat(period.group(2)),
         contributions=int(re.sub(r"\D", "", footer_text[0])),
-        stars=int(footer_text[2]),
-        forks=int(footer_text[3]),
+        stars=social_counts[0],
+        forks=social_counts[1],
         activity=activity,
         languages=languages,
     )
