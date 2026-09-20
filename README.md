@@ -64,7 +64,10 @@ Right now I'm building two products:
 
 ### 🧊 Contribution calendar
 
-<img alt="3D contribution calendar" src="https://raw.githubusercontent.com/pablomanjarres/pablomanjarres/main/profile-3d-contrib/profile-night-view.svg" width="100%" />
+<picture>
+  <source media="(max-width: 600px)" srcset="./profile-3d-contrib/contribution-showcase-mobile.svg" />
+  <img alt="A year in code: daily 3D contribution skyline, activity radar, and language mix" src="./profile-3d-contrib/contribution-showcase.svg" width="100%" />
+</picture>
 
 ---
 
