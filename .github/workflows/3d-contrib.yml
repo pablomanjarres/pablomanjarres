@@ -19,6 +19,8 @@ jobs:
         env:
           USERNAME: ${{ github.repository_owner }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Check contribution data contract
+        run: python3 -m unittest discover -s scripts -p 'test_*.py'
       - name: Render contribution showcase
         run: python3 scripts/render_contribution_showcase.py
       - name: Commit generated SVGs
