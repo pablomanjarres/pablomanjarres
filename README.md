@@ -32,6 +32,7 @@ Right now I'm building two products:
 | [Noelle](https://trynoelle.com) | AI agents org-charted like a real company | `live` |
 | [Nella](https://getnella.dev) | Code context and memory engine for AI agents, over MCP | `live` |
 | [Cortex](https://github.com/pablomanjarres/cortex) | Encrypted local-first life dashboard with a 51-tool MCP | `shipped` |
+| [Anki](https://github.com/pablomanjarres/anki) | Private study deck with cited cards from reached lectures and book pages | `shipped` |
 | [Band of Agents](https://github.com/pablomanjarres/Band-Of-Agents) | Agents clear a campaign against each market's ad rules and debate the conflicts on the record | `shipped` |
 | [Content Pipeline](https://github.com/pablomanjarres/content-pipeline) | Local-first app to run a founder's content and outreach | `shipped` |
 | [Forge](https://github.com/pablomanjarres/forge) | macOS menu-bar app for AI media and coding agents | `shipped` |
