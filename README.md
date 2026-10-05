@@ -1,7 +1,7 @@
 <h1 align="center">Pablo Manjarres</h1>
 
 <p align="center">
-  <b>17-year-old solo founder and engineer.</b> I build AI agents that do real work, and the tools that keep them honest.
+  <b>18-year-old solo founder and engineer.</b> I build AI agents that do real work, and the tools that keep them honest.
 </p>
 
 <p align="center">
