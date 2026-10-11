@@ -5,7 +5,7 @@ import tempfile
 import unittest
 import xml.etree.ElementTree as ET
 from dataclasses import replace
-from datetime import timedelta
+from datetime import date, timedelta
 from pathlib import Path
 from unittest.mock import patch
 
@@ -96,6 +96,51 @@ class ContributionSnapshotTests(unittest.TestCase):
                                     for i, count in enumerate((0, 3, 4, 0, 5))],
         }
 
+    def collection(self, fixture: dict) -> dict:
+        return {
+            "startedAt": f"{fixture['start']}T05:00:00Z",
+            "endedAt": f"{fixture['end']}T23:59:59Z",
+            "restrictedContributionsCount": fixture["restricted_contributions"],
+            "totalCommitContributions": fixture["activity"]["Commit"],
+            "totalIssueContributions": fixture["activity"]["Issue"],
+            "totalPullRequestContributions": fixture["activity"]["PullReq"],
+            "totalPullRequestReviewContributions": fixture["activity"]["Review"],
+            "totalRepositoryContributions": fixture["activity"]["Repo"],
+            "contributionCalendar": {
+                "totalContributions": fixture["contributions"],
+                "weeks": [{"contributionDays": [
+                    {"date": day["date"], "contributionCount": day["count"]}
+                    for day in fixture["daily_contributions"]
+                ]}],
+            },
+            "commitContributionsByRepository": [{
+                "repository": {"primaryLanguage": {"name": "Python"},
+                               "nameWithOwner": "sensitive/identity"},
+                "contributions": {"totalCount": fixture["activity"]["Commit"]},
+            }],
+        }
+
+    def recovery_fixture(self) -> tuple[dict, dict, dict]:
+        fixture = self.snapshot()
+        counts = (1, 2, 3, 4, 5, 6, 49, 0, 3, 4, 0, 5)
+        fixture.update(end="2026-01-12", contributions=82, restricted_contributions=77)
+        fixture["daily_contributions"] = [
+            {"date": str(date(2026, 1, 1) + timedelta(days=index)), "count": count}
+            for index, count in enumerate(counts)
+        ]
+        collection = self.collection(fixture)
+        days = collection["contributionCalendar"]["weeks"][0]["contributionDays"]
+        prefix = {"contributionCalendar": {
+            "totalContributions": 70, "weeks": [{"contributionDays": days[:7]}],
+        }}
+        collection["contributionCalendar"]["weeks"][0]["contributionDays"] = days[7:]
+        return fixture, collection, prefix
+
+    def empty_repositories(self) -> dict:
+        return {"profile": {"repositories": {
+            "nodes": [], "pageInfo": {"hasNextPage": False, "endCursor": None},
+        }}}
+
     def test_snapshot_preserves_exact_dates_counts_and_restricted_activity(self) -> None:
         data = parse_snapshot(self.snapshot())
         self.assertEqual(data.daily_counts, [0, 3, 4, 0, 5])
@@ -185,22 +230,7 @@ class ContributionSnapshotTests(unittest.TestCase):
 
     def test_fetch_discards_repository_identity_and_paginates_public_aggregates(self) -> None:
         fixture = self.snapshot()
-        collection = {
-            "startedAt": "2026-01-01T00:00:00Z", "endedAt": "2026-01-05T23:59:59Z",
-            "restrictedContributionsCount": 7,
-            "totalCommitContributions": 4, "totalIssueContributions": 1,
-            "totalPullRequestContributions": 0, "totalPullRequestReviewContributions": 0,
-            "totalRepositoryContributions": 0,
-            "contributionCalendar": {
-                "totalContributions": 12,
-                "weeks": [{"contributionDays": [{"date": day["date"], "contributionCount": day["count"]}
-                                                 for day in fixture["daily_contributions"]]}],
-            },
-            "commitContributionsByRepository": [{
-                "repository": {"primaryLanguage": {"name": "Python"}, "nameWithOwner": "sensitive/identity"},
-                "contributions": {"totalCount": 4},
-            }],
-        }
+        collection = self.collection(fixture)
         responses = [
             {"profile": {"login": "public-profile", "contributionsCollection": collection}},
             {"profile": {"repositories": {"nodes": [{"stargazerCount": 2, "forkCount": 2}],
@@ -218,6 +248,54 @@ class ContributionSnapshotTests(unittest.TestCase):
         self.assertEqual(snapshot["activity"]["Commit"], 4)
         self.assertEqual(api.call_args_list[2].args[1], {"after": "next"})
         self.assertTrue(all("privacy: PUBLIC" in call.args[0] for call in api.call_args_list[1:]))
+
+    def test_fetch_recovers_exact_first_week_without_changing_private_aggregates(self) -> None:
+        for username in (None, "public-profile"):
+            with self.subTest(username=username):
+                fixture, collection, prefix = self.recovery_fixture()
+                responses = [
+                    {"profile": {"login": "public-profile", "contributionsCollection": collection}},
+                    {"profile": {"contributionsCollection": prefix}},
+                    self.empty_repositories(),
+                ]
+                with patch("fetch_contribution_data.graphql", side_effect=responses) as api:
+                    snapshot = fetch_snapshot(username)
+                self.assertEqual(snapshot["daily_contributions"], fixture["daily_contributions"])
+                self.assertEqual((snapshot["start"], snapshot["end"]),
+                                 ("2026-01-01", "2026-01-12"))
+                self.assertEqual(snapshot["contributions"], 82)
+                self.assertEqual(snapshot["restricted_contributions"], 77)
+                self.assertEqual(snapshot["activity"], fixture["activity"])
+                self.assertEqual(snapshot["languages"], fixture["languages"])
+                self.assertFalse(parse_snapshot(snapshot).breakdown_complete)
+                self.assertEqual(api.call_count, 3)
+                expected_window = {"from": "2026-01-01T05:00:00Z",
+                                   "to": "2026-01-07T23:59:59Z"}
+                if username:
+                    expected_window["username"] = username
+                self.assertEqual(api.call_args_list[1].args[1], expected_window)
+
+    def test_fetch_rejects_total_mismatch_after_one_prefix_recovery(self) -> None:
+        _, collection, prefix = self.recovery_fixture()
+        collection["contributionCalendar"]["totalContributions"] = 83
+        responses = [
+            {"profile": {"login": "public-profile", "contributionsCollection": collection}},
+            {"profile": {"contributionsCollection": prefix}},
+            self.empty_repositories(),
+        ]
+        with patch("fetch_contribution_data.graphql", side_effect=responses) as api:
+            with self.assertRaisesRegex(ValueError, "total does not match"):
+                fetch_snapshot()
+        self.assertEqual(api.call_count, 3)
+
+    def test_fetch_rejects_gap_over_one_week_without_more_requests(self) -> None:
+        _, collection, _ = self.recovery_fixture()
+        collection["startedAt"] = "2025-12-31T05:00:00Z"
+        response = {"profile": {"login": "public-profile", "contributionsCollection": collection}}
+        with patch("fetch_contribution_data.graphql", return_value=response) as api:
+            with self.assertRaises(ValueError):
+                fetch_snapshot()
+        self.assertEqual(api.call_count, 1)
 
     def test_explicit_window_requires_both_timezone_aware_endpoints(self) -> None:
         with self.assertRaisesRegex(ValueError, "Provide both"):
