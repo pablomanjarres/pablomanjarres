@@ -19,6 +19,14 @@ jobs:
         env:
           USERNAME: ${{ github.repository_owner }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Test contribution data parser
+        run: python3 -m unittest discover -s scripts -p 'test_*.py'
+      - name: Fetch contribution data
+        env:
+          GH_TOKEN: ${{ secrets.PROFILE_STATS_TOKEN || secrets.GITHUB_TOKEN }}
+        run: python3 scripts/fetch_contribution_data.py --username "${{ github.repository_owner }}"
+      - name: Render contribution showcase
+        run: python3 scripts/render_contribution_showcase.py --theme blue
       - name: Commit generated SVGs
         run: |
           git config user.name "github-actions[bot]"
