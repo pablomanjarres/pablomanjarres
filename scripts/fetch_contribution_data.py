@@ -14,7 +14,7 @@ import os
 import subprocess
 import sys
 import tempfile
-from datetime import datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 from contribution_data import nonnegative_integer, parse_snapshot, require_complete
@@ -23,7 +23,14 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / "profile-3d-contrib/contribution-data.json"
 REQUEST_TIMEOUT = 45
 MAX_REPOSITORY_PAGES = 20
+MAX_CALENDAR_PREFIX_DAYS = 7
 
+CALENDAR_FIELDS = """
+contributionCalendar {
+  totalContributions
+  weeks { contributionDays { date contributionCount } }
+}
+"""
 COLLECTION_FIELDS = """
 login
 contributionsCollection%s {
@@ -31,16 +38,13 @@ contributionsCollection%s {
   totalCommitContributions totalIssueContributions
   totalPullRequestContributions totalPullRequestReviewContributions
   totalRepositoryContributions
-  contributionCalendar {
-    totalContributions
-    weeks { contributionDays { date contributionCount } }
-  }
+  %s
   commitContributionsByRepository(maxRepositories: 100) {
     contributions { totalCount }
     repository { primaryLanguage { name } }
   }
 }
-"""
+""" % ("%s", CALENDAR_FIELDS)
 REPOSITORY_FIELDS = """
 repositories(first: 100, after: $after, ownerAffiliations: OWNER, privacy: PUBLIC) {
   nodes { stargazerCount forkCount }
@@ -79,6 +83,33 @@ def profile_query(fields: str, username: str | None, definitions: tuple[str, ...
     return f"query{arguments} {{ profile: {profile} {{ {fields} }} }}"
 
 
+def calendar_days(collection: dict, username: str | None) -> list[dict]:
+    """Recover the first week when GitHub clips it from the declared window."""
+    def flatten(calendar: dict) -> list[dict]:
+        return [{"date": day["date"], "count": day["contributionCount"]}
+                for week in calendar["weeks"] for day in week["contributionDays"]]
+
+    days = flatten(collection["contributionCalendar"])
+    if not days:
+        raise ValueError("GitHub returned an empty contribution calendar")
+    start = datetime.fromisoformat(collection["startedAt"].replace("Z", "+00:00")).date()
+    first = date.fromisoformat(days[0]["date"])
+    gap = (first - start).days
+    if gap > MAX_CALENDAR_PREFIX_DAYS:
+        raise ValueError("GitHub contribution calendar is missing more than its first week")
+    if gap > 0:
+        fields = f"contributionsCollection(from: $from, to: $to) {{ {CALENDAR_FIELDS} }}"
+        variables = {"from": collection["startedAt"],
+                     "to": f"{first - timedelta(days=1)}T23:59:59Z"}
+        if username:
+            variables["username"] = username
+        prefix = graphql(profile_query(fields, username, ("$from: DateTime!", "$to: DateTime!")),
+                         variables)["profile"]["contributionsCollection"]
+        recovered = flatten(prefix["contributionCalendar"])
+        days = [day for day in recovered if str(start) <= day["date"] < str(first)] + days
+    return days
+
+
 def fetch_snapshot(username: str | None = None, from_time: str | None = None,
                    to_time: str | None = None) -> dict:
     if bool(from_time) != bool(to_time):
@@ -100,10 +131,7 @@ def fetch_snapshot(username: str | None = None, from_time: str | None = None,
         raise ValueError("GitHub profile is unavailable to the authenticated account")
     collection = profile["contributionsCollection"]
     calendar = collection["contributionCalendar"]
-    days = [{"date": day["date"], "count": day["contributionCount"]}
-            for week in calendar["weeks"] for day in week["contributionDays"]]
-    if not days:
-        raise ValueError("GitHub returned an empty contribution calendar")
+    days = calendar_days(collection, username)
     languages = {}
     for group in collection["commitContributionsByRepository"]:
         language = group["repository"]["primaryLanguage"]
