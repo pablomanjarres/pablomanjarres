@@ -21,10 +21,15 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Test contribution data parser
         run: python3 -m unittest discover -s scripts -p 'test_*.py'
-      - name: Fetch contribution data
+      - name: Fetch complete contribution data
         env:
-          GH_TOKEN: ${{ secrets.PROFILE_STATS_TOKEN || secrets.GITHUB_TOKEN }}
-        run: python3 scripts/fetch_contribution_data.py --username "${{ github.repository_owner }}"
+          GH_TOKEN: ${{ secrets.PROFILE_STATS_TOKEN }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "::error::Set PROFILE_STATS_TOKEN with repo and read:user scopes. See docs/contribution-setup.md."
+            exit 1
+          fi
+          python3 scripts/fetch_contribution_data.py --username "${{ github.repository_owner }}" --require-complete
       - name: Render contribution showcase
         run: python3 scripts/render_contribution_showcase.py --theme blue
       - name: Commit generated SVGs
