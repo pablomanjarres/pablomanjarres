@@ -88,9 +88,11 @@ def parse_snapshot(snapshot: dict) -> ProfileData:
     if snapshot.get("start") != dates[0].isoformat() or snapshot.get("end") != dates[-1].isoformat():
         raise ValueError("Contribution snapshot date range does not match its daily calendar")
     contributions = nonnegative_integer(snapshot.get("contributions"), "contribution total")
-    if contributions != sum(counts):
-        raise ValueError("Contribution snapshot total does not match its daily counts")
     restricted = nonnegative_integer(snapshot.get("restricted_contributions", 0), "restricted count")
+    if contributions != sum(counts):
+        raise ValueError("Contribution snapshot total does not match its daily counts: "
+                         f"total={contributions}, daily_sum={sum(counts)}, restricted={restricted}, "
+                         f"days={len(counts)}, calendar={dates[0]}..{dates[-1]}")
     if restricted > contributions:
         raise ValueError("Contribution snapshot restricted count exceeds its total")
     activity = snapshot.get("activity")
