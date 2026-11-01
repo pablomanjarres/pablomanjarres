@@ -38,6 +38,7 @@ Right now I'm building two products:
 | [Forge](https://github.com/pablomanjarres/forge) | macOS menu-bar app for AI media and coding agents | `shipped` |
 | [Archgraph](https://github.com/pablomanjarres/archgraph) | AI-generated C4 architecture diagrams from any codebase | `live` |
 | [OmegaHack · CAROL](https://github.com/pablomanjarres/omegahack) | Multi-agent govtech for city halls (407 tests, 100% coverage on the deadline engine) | `prototype` |
+| [Hedge Parking](https://github.com/pablomanjarres/vibethon-hackathon) | Rush-hour parking and valet app that gives two campus gates one fair line, built in a day at the EAFIT Vibethon. [Landing](https://pablomanjarres.com/oss/vibethon-hackathon) · [Write-up](https://pablomanjarres.com/portfolio/projects/vibethon-hackathon) | `prototype` |
 | [Localhost Mirror](https://github.com/pablomanjarres/localhost-mirror) | Expose localhost over Tailscale, from your menu bar | `shipped` |
 | [Lumen Frontier](https://github.com/pablomanjarres/Lumen-Frontier) | A widget OS and a 3D universe you fly through to learn | `live` |
 | [GRIT-X-AWA](https://github.com/pablomanjarres/NASA-Space-Apps-Challenge) | Exoplanet detection over NASA Kepler and TESS mission data (NASA Space Apps) | `prototype` |
