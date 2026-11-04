@@ -29,6 +29,7 @@ Right now I'm building two products:
 
 | Project | What it is | |
 |---|---|---|
+| [Nella Labs](https://nella-labs.com) | The lab behind Noelle and Nella, with every product on one page. [Write-up](https://pablomanjarres.com/portfolio/projects/nella-labs) | `live` |
 | [Noelle](https://trynoelle.com) | AI agents org-charted like a real company | `live` |
 | [Nella](https://getnella.dev) | Code context and memory engine for AI agents, over MCP | `live` |
 | [Cortex](https://github.com/pablomanjarres/cortex) | Encrypted local-first life dashboard with agent access over MCP. [Landing](https://pablomanjarres.com/oss/cortex) · [Write-up](https://pablomanjarres.com/portfolio/projects/cortex) | `shipped` |
