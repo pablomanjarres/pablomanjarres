@@ -7,6 +7,11 @@ on:
 
 permissions:
   contents: write
+  issues: write
+
+concurrency:
+  group: contribution-refresh
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -39,3 +44,25 @@ jobs:
           git add -A profile-3d-contrib
           git commit -m "chore: update 3d contribution calendar" || echo "no changes"
           git push
+      - name: Track refresh status in an issue
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          JOB_STATUS: ${{ job.status }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          TITLE: Contribution card refresh is failing
+        run: |
+          open=$(gh issue list --state open --limit 100 --json number,title \
+            --jq ".[] | select(.title == env.TITLE) | .number")
+          if [ "$JOB_STATUS" = "success" ]; then
+            for number in $open; do
+              gh issue close "$number" --comment "Refresh succeeded: $RUN_URL"
+            done
+          elif [ -n "$open" ]; then
+            gh issue comment "${open%%[[:space:]]*}" --body "Failed again: $RUN_URL"
+          else
+            gh issue create --title "$TITLE" --body "The scheduled contribution refresh failed: $RUN_URL
+
+          The profile card keeps its last good snapshot until a run succeeds. Read the fetch step log, then see docs/contribution-setup.md. This issue closes on the next successful run."
+          fi

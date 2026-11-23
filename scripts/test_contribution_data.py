@@ -1,6 +1,7 @@
 """Check the SVG data contract used by the scheduled profile refresh."""
 
 import json
+import subprocess
 import tempfile
 import unittest
 import xml.etree.ElementTree as ET
@@ -11,7 +12,7 @@ from unittest.mock import patch
 
 from contribution_data import (EMPTY_DAY_HEIGHT, MAX_DAY_HEIGHT, ProfileData,
                                descendants, parse_snapshot, parse_source, tag_name)
-from fetch_contribution_data import fetch_snapshot, write_snapshot
+from fetch_contribution_data import fetch_snapshot, graphql, write_snapshot
 
 
 SOURCE = Path(__file__).resolve().parents[1] / "profile-3d-contrib/profile-night-view.svg"
@@ -302,6 +303,25 @@ class ContributionSnapshotTests(unittest.TestCase):
             fetch_snapshot(from_time="2026-01-01T00:00:00Z")
         with self.assertRaisesRegex(ValueError, "ordered timestamps with a timezone"):
             fetch_snapshot(from_time="2026-01-01T00:00:00", to_time="2026-01-05T00:00:00")
+
+    def test_rejected_token_names_the_credential_without_echoing_the_response(self) -> None:
+        body = '{"message": "Bad credentials", "status": "401"}'
+        rejected = subprocess.CompletedProcess(
+            args=[], returncode=1, stdout=body, stderr="gh: Bad credentials (HTTP 401)\n")
+        with patch("fetch_contribution_data.subprocess.run", return_value=rejected):
+            with self.assertRaises(ValueError) as caught:
+                graphql("{ viewer { login } }", {})
+        message = str(caught.exception)
+        self.assertIn("invalid or expired", message)
+        self.assertIn("HTTP 401", message)
+        self.assertNotIn("Bad credentials", message)
+
+    def test_other_cli_failures_report_only_the_http_status(self) -> None:
+        failed = subprocess.CompletedProcess(
+            args=[], returncode=1, stdout="", stderr="gh: secret-bearing detail (HTTP 502)\n")
+        with patch("fetch_contribution_data.subprocess.run", return_value=failed):
+            with self.assertRaisesRegex(ValueError, r"^GitHub GraphQL request failed \(HTTP 502\)$"):
+                graphql("{ viewer { login } }", {})
 
 
 if __name__ == "__main__":

@@ -11,6 +11,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -53,6 +54,17 @@ repositories(first: 100, after: $after, ownerAffiliations: OWNER, privacy: PUBLI
 """
 
 
+def cli_failure_message(returncode: int, stderr: str) -> str:
+    """Report only the HTTP status from gh, never the response text around it."""
+    status = re.search(r"\(HTTP (\d{3})\)", stderr or "")
+    if not status:
+        return f"GitHub GraphQL request failed (exit {returncode})"
+    if status.group(1) == "401":
+        return ("GitHub rejected the token (HTTP 401): it is invalid or expired. "
+                "Replace PROFILE_STATS_TOKEN as described in docs/contribution-setup.md")
+    return f"GitHub GraphQL request failed (HTTP {status.group(1)})"
+
+
 def graphql(query: str, variables: dict) -> dict:
     """Keep the API response in memory and suppress unsanitized error bodies."""
     try:
@@ -66,7 +78,7 @@ def graphql(query: str, variables: dict) -> dict:
     except subprocess.TimeoutExpired as error:
         raise ValueError("GitHub GraphQL request timed out") from error
     if result.returncode:
-        raise ValueError(f"GitHub GraphQL request failed (exit {result.returncode})")
+        raise ValueError(cli_failure_message(result.returncode, result.stderr))
     try:
         response = json.loads(result.stdout)
     except json.JSONDecodeError as error:
